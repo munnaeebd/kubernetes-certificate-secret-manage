@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: tls-example-ingress
+spec:
+  tls:
+  - hosts:
+      - nginx1.munna.com
+    secretName: nginx-1-secret
+  - hosts:
+      - nginx2.munna.com
+    secretName: nginx-2-secret
+  rules:
+  - host: nginx1.munna.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-svc-1
+          servicePort: 80
+
+
+  - host: nginx2.munna.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-svc-2
+          servicePort: 80
+
